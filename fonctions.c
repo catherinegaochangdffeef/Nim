@@ -230,7 +230,25 @@ void Voisines(int nlig, int ncol, int nban, int nb_vois, T_Tab_Case *t, T_Tab_Ca
     }
 }
 */
-void 
+void Calcul_Nimber(int nim[][VMAX],int nlig,int ncol)
+{
+    int x,y;
+    int nimber, nimber_tempal = 0;
+    for(x=ncol-1;x>=0;x--)
+    {
+        nimber = nimber_tempal;
+        for(y=nlig-1;y>=0;y--)
+        {
+            nim[x][y]=nimber;
+            nimber++;
+            nimber%=3;
+        }
+        nimber_tempal+=2;
+        nimber_tempal%=3;
+    }
+
+}
+
 
 
 
