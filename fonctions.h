@@ -23,7 +23,7 @@ int caseBannie(struct T_Case c, T_Tab_Case tab);
 void Parametres(int *pointeurnlig, int *pointeurncol, int *pointeurnban, int *pointeurniveau, int *pointeurnext);
 int Hasard(int);
 int max(int,int);
-void Hasard_Ban(int nlig, int ncol, T_Tab_Case T);
+void Hasard_Ban(int nlig, int ncol, T_Tab_Case T, int aBannir);
 int Bannissable(int nlig, int ncol, T_Tab_Case T, struct T_Case _case) ;
 void AfficheGrille(int nlig,int ncol, T_Tab_Case T, struct T_Case pion);
 void Voisines(int nlig, int ncol, T_Tab_Case *t, T_Tab_Case ban, struct T_Case _case);

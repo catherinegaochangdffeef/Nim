@@ -56,13 +56,12 @@ int max(int a, int b)
     else return b;
 }
 
-void Hasard_Ban(int nlig, int ncol, T_Tab_Case T)
+void Hasard_Ban(int nlig, int ncol, T_Tab_Case T, int aBannir)
 {
     struct T_Case _case;
-    _case.x=ncol;
-    _case.y=nlig;
     int k, test;
-    for (k = 0; k < T.taille; k++)
+    T.taille=0;
+    for (k = 0; k < aBannir; k++)
     {
         do
         {
@@ -71,36 +70,35 @@ void Hasard_Ban(int nlig, int ncol, T_Tab_Case T)
             test=Bannissable(nlig, ncol, T, _case);
         }
         while(test==0);
-        T.tab[k].x=_case.x;
-        T.tab[k].y=_case.y;
+        T.tab[k]=_case;
+        T.taille++;
     }
 
 }
 //Fonction qui d�finit les contraintes des cases bannies
 int Bannissable(int nlig, int ncol, T_Tab_Case T, struct T_Case _case) 
 {
-    int m, bannissable, diagonal;
+    int bannissable;
     //si banissable=0, pas bannissable
     bannissable=0;
-    diagonal=0;
-    if(_case.y == 1 && _case.x == ncol)
+    if(_case.y == 0 && _case.x == ncol-1)
         bannissable=1;
-    else if(_case.y == nlig && _case.x == 1)
+    else if(_case.y == nlig-1 && _case.x == 0)
         bannissable=1;
-    else if(_case.x > 1 && _case.y < nlig && _case.y > 1 && _case.x < ncol)
+    else if(_case.x > 0 &&_case.x < ncol-1 && _case.y < nlig-1 && _case.y > 0 )
         bannissable=1;
-    for(m = 0; m < T.taille; m++)
-    {
-        if (_case.y==T.tab[m].y+1 && _case.x==T.tab[m].x-1)
-            diagonal=1;
-        else if (_case.y==T.tab[m].y-1 && _case.x==T.tab[m].x+1)
-            diagonal=1;
-        else if (_case.y==T.tab[m].y && _case.x==T.tab[m].x)
-            diagonal=1;
-
-    }
-    if(diagonal==1)
-        bannissable=0;
+    if (caseBannie(_case, T))
+        bannissable = 0;
+    struct T_Case caseTmp = _case;
+    caseTmp.x++;
+    caseTmp.y--;
+    if (caseBannie(caseTmp, T))
+        bannissable = 0;
+    caseTmp = _case;
+    caseTmp.x--;
+    caseTmp.y++;
+    if (caseBannie(caseTmp, T))
+        bannissable = 0;
     return bannissable;
 }
 
