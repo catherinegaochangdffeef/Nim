@@ -21,6 +21,7 @@ int max(int,int);
 void Hasard_Ban(int, int, int, T_Tab_Case *T);
 int Bannissable(int, int, int, T_Tab_Case *T, struct T_Case);
 void AfficheGrille(int,int, int, T_Tab_Case *T, struct T_Case );
+void Voisines(int, int ncol, int, int, T_Tab_Case *t, T_Tab_Case T, struct T_Case);
 void  Calcul_Nimbers(int,int*,int*,int*, T_Tab_Case );
 
 

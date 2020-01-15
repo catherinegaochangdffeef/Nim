@@ -126,6 +126,55 @@ void AfficheGrille(int nlig,int ncol, int nban, T_Tab_Case *T, struct T_Case pio
     }
 }
 
+void Voisines(int nlig, int ncol, int nban, int nb_vois, T_Tab_Case *t, T_Tab_Case T, struct T_Case _case)
+{
+    int i,j,z;
+    int bannie=0;
+    for(i=(_case.x)+1; i<=(_case.x)+2; i++)
+        {
+            if(nban!=0)
+            {
+                for(j=0; j<nban; j++)
+                {
+
+                    if(T.tab[j].x==i && T.tab[j].y==_case.y)
+                        bannie=1;
+
+                }
+
+            }
+            if(bannie==0)
+            {
+
+                nb_vois++;
+                (*t).tab[nb_vois-1].x=i;
+                (*t).tab[nb_vois-1].y=_case.y;
+            }
+        }
+
+
+    for(i=(_case.y)+1; i<=(_case.y)+2; i++)
+        {
+            if(nban!=0)
+            {
+                for(j=0; j<nban; j++)
+                {
+                    if(T.tab[j].x==_case.x && T.tab[j].y==i)
+                        bannie=1;
+                }
+
+            }
+            if(bannie==0)
+            {
+
+                nb_vois++;
+                (*t).tab[nb_vois-1].x=_case.x;
+                (*t).tab[nb_vois-1].y=i;
+            }
+        }
+
+}
+
 /*void Calcul_Nimbers(int nim[][VMAX],int*nlig,int*ncol,int*nban, T_Tab_Case nban )
 {
     int i,k,j,h,nimber_voisine;
