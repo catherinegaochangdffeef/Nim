@@ -191,7 +191,74 @@ void Calcul_Nimber(int nim[][VMAX],int nlig,int ncol)
 
 }
 
+struct T_Case Coup_Joueur(struct T_Case pion, T_Tab_Case ban, int nlig, int ncol)
+{
+    int i, choice;
+    T_Tab_Case *t;
+    printf("A ton tour");
+    Voisines(nlig, ncol, nban, t, ban, pion);
+    printf("hello");
+
+    if(t->taille==1)
+    {
+        printf("Il y a une seule possibilite: (%d,%d)\nvalider --->", t->tab[0].x, t->tab[0].y);
+        scanf("%d", &choice);
+        pion.x=t->tab[0].x;
+        pion.y=t->tab[0].y;
+    }
+
+    else
+    {
+        printf("Veuillez choisir la destination: ");
+        for(i=0; i < t->taille; i++)
+        {
+            printf("%d: (%d,%d)", i, t->tab[t->taille-1].x, t->tab[t->taille-1].y);
+        }
+        do
+        {
+            printf("\n--->");
+            Lire_Entier(1, t->taille);
+        }
+        while(choice<1 || choice>t->taille);
+    }
+    pion.x=t->tab[choice-1].x;
+    pion.y=t->tab[choice-1].y;
+
+    return pion;
+}
 
 
 
+
+
+struct T_Case Coup_Ordi_Gagnant(int nlig,int ncol,struct T_Case *pion,int nim[][VMAX], T_Tab_Case *t )
+{
+    int choice,i,x,y;
+    struct T_Tab_Case *t;
+    Voisines(nlig,ncol, *t, ban, _case);
+    choice=rand()% t->taille;
+    for(i=0;i<t->taille,i++)
+    {
+        if(nim[x][y]==0)
+        {
+            choice=i;
+            break;
+        }
+    }
+    pion.x=t->tab[choice].x;
+    pion.y=t->tab[choice].y;
+    printf("L'ordinateur deplace le pion en (%d,%d)\n",t->tab[choice].x, t->tab[choice].y);
+    return pion;
+}
+struct T_Case Coup_Ordi_Hasard(struct T_Case pion,int nlig,int ncol)
+{
+    int choice;
+    struct T_Tab_Case *t;
+    Voisines( );
+    choice=rand()%t->taille;
+    printf("L'ordinateur deplace le pion en(%d,%d)\n",t->tab[choice].x,t->tab[choice].y);
+    pion.x=t->tab[choice].x;
+    pion.y=t->tab[choice].y;
+    return pion;
+}
 
