@@ -11,18 +11,23 @@ struct T_Case
 
 typedef struct
 {
-    struct T_Case tab[100];
+    struct T_Case *tab;
+    int taille;
 }T_Tab_Case;
 
-int Lire_Entier(int, int);
+/*
+ * fonction qui donne un entier entre deux bornes
+*/
+int Lire_Entier(int bi, int bs);
+int caseBannie(struct T_Case c, T_Tab_Case tab);
 void Parametres(int *pointeurnlig, int *pointeurncol, int *pointeurnban, int *pointeurniveau, int *pointeurnext);
 int Hasard(int);
 int max(int,int);
-void Hasard_Ban(int, int, int, T_Tab_Case *T);
-int Bannissable(int, int, int, T_Tab_Case *T, struct T_Case);
-void AfficheGrille(int,int, int, T_Tab_Case *T, struct T_Case );
-void Voisines(int, int ncol, int, int, T_Tab_Case *t, T_Tab_Case T, struct T_Case);
-void  Calcul_Nimbers(int,int*,int*,int*, T_Tab_Case );
+void Hasard_Ban(int nlig, int ncol, T_Tab_Case T);
+int Bannissable(int nlig, int ncol, T_Tab_Case T, struct T_Case _case) ;
+void AfficheGrille(int nlig,int ncol, T_Tab_Case T, struct T_Case pion);
+void Voisines(int nlig, int ncol, T_Tab_Case *t, T_Tab_Case ban, struct T_Case _case);
+void Calcul_Nimber(int nim[][VMAX],int nlig,int ncol);
 
 
 
