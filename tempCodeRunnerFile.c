@@ -1,0 +1,1 @@
+ Calcul_Nimbers(int,int*,int*,int*, T_Tab_Case ban );
