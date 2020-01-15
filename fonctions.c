@@ -231,13 +231,13 @@ struct T_Case Coup_Joueur(struct T_Case pion, T_Tab_Case ban, int nlig, int ncol
 
 
 
-struct T_Case Coup_Ordi_Gagnant(int nlig,int ncol,struct T_Case *pion,int nim[][VMAX], T_Tab_Case *t )
+struct T_Case Coup_Ordi_Gagnant(int nlig,int ncol,struct T_Case pion,int nim[][VMAX], T_Tab_Case *t )
 {
     int choice,i,x,y;
     struct T_Tab_Case *t;
-    Voisines(nlig,ncol, *t, ban, _case);
+    Voisines(nlig,ncol, *t, ban, case);
     choice=rand()% t->taille;
-    for(i=0;i<t->taille,i++)
+    for(i=0;i<t->taille;i++)
     {
         if(nim[x][y]==0)
         {

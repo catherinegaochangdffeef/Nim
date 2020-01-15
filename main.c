@@ -10,6 +10,7 @@ int main()
     int nlig=0, ncol=0, nban=0, niveau=0, next=0,nim[VMAX][VMAX],probabilite;
     struct T_Case pion;
     T_Tab_Case ban;
+    T_Tab_Case *t;
     struct T_Case ban_tab[VMAX];
     ban.tab = ban_tab;
     pion.x=0;
@@ -26,32 +27,32 @@ int main()
     {
         if(next%2==0)
         {
-            pion=Coup_jouer(pion,nban,ban,nlig,ncol);
+            pion=Coup_Joueur(pion,ban,nlig, ncol);
 
         }
         else
         {
             if(niveau==1)
             {
-                pion=Coup_Ordi_Hasard(pion,nban,nlig,ncol);
+                pion=Coup_Ordi_Hasard(pion,nlig,ncol);
             
             }
             else if(niveau==2)
             {
                 probabilite=rand()%3;
                 if(probabilite==0)
-                    pion=Coup_Ordi_Gagnant(pion,nban,ban,nlig,ncol,nim);
+                    pion=Coup_Ordi_Gagnant(nlig,ncol,pion,nim,*t );
                 else
-                    pion=Coup_Ordi_Hasard(pion,nban,ban,nlig,ncol);
+                    pion=Coup_Ordi_Hasard(pion,nlig,ncol);
             }
             else if(niveau==3)
             {
                 probabilite=rand()%3;
                 if(probabilite==0)
-                    pion=Coup_Ordi_Gagnant(pion,nban,ban,nlig,ncol,nim);
+                    pion=Coup_Ordi_Gagnant(nlig,ncol,pion,nim,*t );
             }
             else
-                pion=Coup_Ordi_Gagnant(pion,nban,ban,nlig,ncol,nim);
+                pion=Coup_Ordi_Gagnant(nlig,ncol,pion,nim,*t )
         }
     
 if(pion.x==nlig&&pion.y==ncol)
