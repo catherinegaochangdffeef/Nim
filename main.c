@@ -1,68 +1,63 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "fonctions.h"
-
-
+#include "entetes.h"
 
 int main()
 {
-    int nlig=0, ncol=0, nban=0, niveau=0, next=0,nim[VMAX][VMAX],probabilite;
+    int nlig=0, ncol=0, nban=0, niveau=0, next=0, nim[VMAX][VMAX], probabilite;
     struct T_Case pion;
-    T_Tab_Case ban;
-    T_Tab_Case *t;
-    struct T_Case ban_tab[VMAX];
-    ban.tab = ban_tab;
-    pion.x=0;
-    pion.y=0;
+    srand(time(NULL));
+    pion.x=1;
+    pion.y=1;
     printf("Initialisation des parametres du jeu: \n");
-    Parametres(&nlig, &ncol, &ban.taille, &niveau, &next);
-    //printf("%d %d %d %d %d", nlig,ncol,nban,niveau,next); //pour v�rifier si on retrouve les valeurs saisies
-    Hasard_Ban(nlig, ncol, ban, ban.taille);
-   
+    Parametres(&nlig, &ncol, &nban, &niveau, &next);
     printf("Lancement de la partie!\n");
-    AfficheGrille(nlig,ncol, ban, pion);
-    Calcul_Nimber(nim,nlig,ncol);
+    T_Tab_Case ban;
+    Hasard_Ban(nlig, ncol, nban, &ban);
+    AfficheGrille(nlig, ncol, nban, &ban, pion);
+    Calcul_Nimbers(nim,nlig,ncol);
     while(1)
     {
         if(next%2==0)
         {
-            pion=Coup_Joueur(pion,ban,nlig, ncol);
-
+            pion=Coup_Joueur(pion,ban,nlig,ncol,nban);
         }
-        else
+        else if(next%2==1)
         {
             if(niveau==1)
             {
-                pion=Coup_Ordi_Hasard(pion,nlig,ncol);
-            
+                pion=Coup_Ordi_Hasard(pion,ban,nlig,ncol,nban);
             }
             else if(niveau==2)
             {
                 probabilite=rand()%3;
                 if(probabilite==0)
-                    pion=Coup_Ordi_Gagnant(nlig,ncol,pion,nim,*t );
+                    pion=Coup_Ordi_Gagnant(pion,ban,nlig,ncol,nban,nim);
                 else
-                    pion=Coup_Ordi_Hasard(pion,nlig,ncol);
+                    pion=Coup_Ordi_Hasard(pion,ban,nlig,ncol,nban);
             }
             else if(niveau==3)
             {
                 probabilite=rand()%3;
                 if(probabilite==0)
-                    pion=Coup_Ordi_Gagnant(nlig,ncol,pion,nim,*t );
+                    pion=Coup_Ordi_Gagnant(pion,ban,nlig,ncol,nban,nim);
+                else
+                    pion=Coup_Ordi_Gagnant(pion,ban,nlig,ncol,nban,nim);
             }
             else
-                pion=Coup_Ordi_Gagnant(nlig,ncol,pion,nim,*t )
+                pion=Coup_Ordi_Gagnant(pion,ban,nlig,ncol,nban,nim);
         }
-    
-if(pion.x==nlig&&pion.y==ncol)
-   {
-       if(next%2==0)
-            printf("Tu as gagne!");
-       else
-            printf("Tu es perdu!");
-       return 0;
-   }
-   next++;
+        AfficheGrille(nlig,ncol,nban,&ban,pion);
+
+        if(pion.x==nlig&&pion.y==ncol)
+        {
+        if(next%2==0)
+            printf("Felicitation! Tu as gagne.");
+        else
+            printf("Dommage! Tu as perdu.");
+        return 0;
+        }
+    next++;
     }
 }
